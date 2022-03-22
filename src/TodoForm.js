@@ -7,7 +7,7 @@ function TodoForm(props) {
     const {addTodo} = props;
 
     return (
-        <Paper>
+        <Paper style={{margin: '1rem 0', padding: '0 1rem'}}>
             <form
                 onSubmit={(e) => {
                     e.preventDefault();
@@ -15,7 +15,13 @@ function TodoForm(props) {
                     resetInput();
                 }}
             >
-                <TextField value={task} onChange={handleInputChange}/>
+                <TextField
+                    value={task}
+                    onChange={handleInputChange}
+                    margin='normal'
+                    label='Add new task'
+                    fullWidth
+                />
             </form>
         </Paper>
     );
