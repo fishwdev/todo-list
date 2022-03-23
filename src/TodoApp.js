@@ -1,8 +1,8 @@
-import React, {useState} from "react";
-import uuid from 'uuid/v4';
-import {AppBar, Grid, Paper, Toolbar, Typography} from "@material-ui/core";
+import React, {useEffect} from "react";
 import TodoList from "./TodoList";
 import TodoForm from "./TodoForm";
+import useTodoState from "./hooks/useTodoState";
+import {AppBar, Grid, Paper, Toolbar, Typography} from "@material-ui/core";
 
 function TodoApp() {
 
@@ -12,25 +12,14 @@ function TodoApp() {
         {id: 3, task: 'Get haircut', isCompleted: false}
     ]
 
-    const [todos, setTodos] = useState(defaultTodos);
+    const localTodos = JSON.parse(window.localStorage.getItem('todos')) || defaultTodos;
 
-    const addTodo = (newTask) => {
-        setTodos([...todos, {id: uuid(), task: newTask, isCompleted: false}])
-    };
+    const {todos, addTodo, editTodo, toggleCompleted, removeTodo} = useTodoState(localTodos);
 
-    const toggleCompleted = (tudoID) => {
-        setTodos(todos.map(todo => (
-            todo.id === tudoID ? {...todo, isCompleted: !todo.isCompleted} : todo
-        )))
-    };
+    useEffect(() => {
+        window.localStorage.setItem('todos', JSON.stringify(todos));
+    }, [todos]);
 
-    const removeTodo = (tudoID) => {
-        // filter out the target ID
-        // setTodos
-        setTodos(todos.filter(todo => (
-            todo.id !== tudoID
-        )))
-    };
 
     return (
         <Paper
@@ -50,7 +39,12 @@ function TodoApp() {
             <Grid container justifyContent='center'>
                 <Grid item xs={10} md={8} lg={10} style={{marginTop: '3rem'}}>
                     <TodoForm addTodo={addTodo}/>
-                    <TodoList todos={todos} removeTodo={removeTodo} toggleCompleted={toggleCompleted}/>
+                    <TodoList
+                        todos={todos}
+                        editTodo={editTodo}
+                        removeTodo={removeTodo}
+                        toggleCompleted={toggleCompleted}
+                    />
                 </Grid>
             </Grid>
         </Paper>
