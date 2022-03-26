@@ -8,14 +8,18 @@ const defaultTodos = [
 ]
 
 const TodosContext = createContext();
+const TodosDispatchContext = createContext();
 
 function TodosProvider(props) {
     const [todos, todoDispatch] = useReducer(TodosReducer, defaultTodos);
     return (
-        <TodosContext.Provider value={{todos, todoDispatch}}>
-            {props.children}
+        <TodosContext.Provider value={todos}>
+            <TodosDispatchContext.Provider value={todoDispatch}>
+                {props.children}
+            </TodosDispatchContext.Provider>
         </TodosContext.Provider>
     );
 }
 
 export {TodosContext, TodosProvider};
+export {TodosDispatchContext};

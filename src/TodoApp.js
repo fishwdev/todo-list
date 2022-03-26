@@ -5,6 +5,7 @@ import {AppBar, Grid, Paper, Toolbar, Typography} from "@material-ui/core";
 import {TodosProvider} from "./contexts/todos.context";
 
 function TodoApp() {
+    console.log('TodoApp rendered');
     return (
         <Paper
             style={{

@@ -4,7 +4,8 @@ import Todo from "./Todo";
 import {TodosContext} from "./contexts/todos.context";
 
 function TodoList() {
-    const {todos} = useContext(TodosContext);
+    console.log('TodoList rendered');
+    const todos = useContext(TodosContext);
 
     if (todos.length)
         return (

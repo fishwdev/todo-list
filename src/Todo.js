@@ -4,12 +4,13 @@ import EditTodoForm from "./EditTodoForm";
 import {Checkbox, IconButton, ListItem, ListItemSecondaryAction, ListItemText} from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
-import {TodosContext} from "./contexts/todos.context";
+import {TodosDispatchContext} from "./contexts/todos.context";
 
 function Todo(props) {
+    console.log('Todo rendered');
     const [isEditing, setIsEditing] = useToggleState(false);
     const {id, task, isCompleted} = props;
-    const {todoDispatch} = useContext(TodosContext);
+    const todoDispatch = useContext(TodosDispatchContext);
 
     return (
         <ListItem style={{height: '64px'}}>

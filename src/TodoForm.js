@@ -1,11 +1,12 @@
 import React, {useContext} from "react";
 import {Paper, TextField} from "@material-ui/core";
 import useInputState from "./hooks/useInputState";
-import {TodosContext} from "./contexts/todos.context";
+import {TodosDispatchContext} from "./contexts/todos.context";
 
 function TodoForm() {
+    console.log('TodoForm rendered');
     const [task, handleInputChange, resetInput] = useInputState('');
-    const {todoDispatch} = useContext(TodosContext);
+    const todoDispatch = useContext(TodosDispatchContext);
 
     return (
         <Paper style={{margin: '1rem 0', padding: '0 1rem'}}>
